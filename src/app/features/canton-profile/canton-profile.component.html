@@ -29,8 +29,20 @@
 
   <div *ngIf="!isLoading() && !error() && canton()">
     <div class="canton-header">
-      <h1>{{ canton()?.name }}</h1>
-      <span class="canton-code">{{ canton()?.code }}</span>
+      <!-- Flaggenbereich -->
+      <div class="canton-flag-container">
+        <img
+          [src]="defaultFlagSrc(canton()?.code)"
+          [alt]="'Flagge von ' + canton()?.name"
+          class="canton-flag"
+          (error)="onFlagError($event)"
+        />
+      </div>
+
+      <div class="canton-title">
+        <h1>{{ canton()?.name }}</h1>
+        <span class="canton-code">{{ canton()?.code }}</span>
+      </div>
     </div>
 
     <div class="canton-info">

@@ -89,6 +89,36 @@ export default class CantonProfileComponent implements OnInit {
     this.router.navigate(["/canton-profile", newCantonCode]);
   }
 
+  // Füge diese Methoden zu deiner Komponente hinzu
+
+  defaultFlagSrc(code: string | undefined): string {
+    if (!code) return "assets/flags/placeholder-flag.svg";
+    const name = this.canton()?.name;
+    // Verwendung von Wikipedia Commons für Kantonswappen
+    return `https://www.fahnenfabrik.ch/userfiles/upload/shop/U_KT_${code}.jpg`;
+  }
+
+  onFlagError(event: any): void {
+    // Bei Ladefehlern alternative URL verwenden
+    const code = this.canton()?.code;
+    const name = this.canton()?.name;
+    if (code) {
+      // Versuch mit alternativen URL-Mustern
+      event.target.src = `https://www.fahnenfabrik.ch/userfiles/upload/shop/U_KT_${code}.jpg`;
+
+      // Hinzufügen eines weiteren Error-Handlers für den zweiten Versuch
+      event.target.onerror = () => {
+        // Letztendlich ein lokales Platzhalterbild verwenden
+        event.target.src = "assets/flags/placeholder-flag.svg";
+        // Fehlerhandler entfernen nach dem letzten Versuch
+        event.target.onerror = null;
+      };
+    } else {
+      // Wenn kein Code verfügbar ist, verwende das Platzhalterbild
+      event.target.src = "assets/flags/placeholder-flag.svg";
+    }
+  }
+
   refreshCantonData(): void {
     this.loadCantonData();
   }
