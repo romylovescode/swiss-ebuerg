@@ -5,6 +5,18 @@ import { map } from "rxjs/operators";
 
 export const routes: Routes = [
   {
+    path: "canton-profile",
+    loadComponent: () =>
+      import("./features/canton-profile/canton-profile.component"),
+    // canActivate: [() => inject(UserService).isAuthenticated],
+  },
+  // Route für canton-profile mit Code-Parameter
+  {
+    path: "canton-profile/:code",
+    loadComponent: () =>
+      import("./features/canton-profile/canton-profile.component"),
+  },
+  {
     path: "",
     loadComponent: () => import("./features/article/pages/home/home.component"),
   },

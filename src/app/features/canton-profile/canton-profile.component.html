@@ -1,0 +1,60 @@
+<div class="canton-profile-container">
+  <!-- Canton Selector -->
+  <div class="canton-selector">
+    <label for="cantonSelect">Wählen Sie einen Kanton:</label>
+    <div class="select-wrapper">
+      <select
+        id="cantonSelect"
+        [disabled]="isLoading()"
+        (change)="onCantonChange($event)"
+      >
+        <option
+          *ngFor="let cantonOption of sortedCantonsList()"
+          [value]="cantonOption.code"
+          [selected]="cantonOption.code === cantonCode()"
+        >
+          {{ cantonOption.name }} ({{ cantonOption.code }})
+        </option>
+      </select>
+      <div class="select-arrow"></div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading()" class="loading-spinner">Lade Kantonsdaten...</div>
+
+  <div *ngIf="error()" class="error-message">
+    {{ error() }}
+    <button (click)="refreshCantonData()">Erneut versuchen</button>
+  </div>
+
+  <div *ngIf="!isLoading() && !error() && canton()">
+    <div class="canton-header">
+      <h1>{{ canton()?.name }}</h1>
+      <span class="canton-code">{{ canton()?.code }}</span>
+    </div>
+
+    <div class="canton-info">
+      <p data-label="Hauptstadt">{{ canton()?.capital }}</p>
+      <p data-label="Bevölkerung">{{ canton()?.population | number }}</p>
+      <p data-label="Fläche">{{ canton()?.area }} km²</p>
+      <p data-label="Gegründet">
+        {{ canton()?.established | date: "dd.MMMM.yyyy" : "" : "de-CH" }}
+      </p>
+      <p data-label="Sprachen">{{ canton()?.languages?.join(", ") }}</p>
+    </div>
+
+    <div class="canton-rules" *ngIf="canton()?.specificRules?.length">
+      <h2>Kantonale Regeln</h2>
+      <div class="rule-card" *ngFor="let rule of canton()?.specificRules">
+        <h3>{{ rule.title }}</h3>
+        <p class="rule-category">Kategorie: {{ rule.category }}</p>
+        <p>{{ rule.description }}</p>
+        <p class="effective-date">Gültig ab: {{ rule.effectiveDate | date }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="!canton()?.specificRules?.length" class="no-rules">
+      <p>Keine Regeln für diesen Kanton gefunden.</p>
+    </div>
+  </div>
+</div>

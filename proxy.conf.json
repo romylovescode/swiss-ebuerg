@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://real-world-app-39656dff2ddc.herokuapp.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

@@ -1,0 +1,291 @@
+/* Canton Selector Styling */
+.canton-selector {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  label {
+    font-weight: 500;
+    color: var(--swiss-text);
+    margin-right: 0.5rem;
+  }
+
+  .select-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+    max-width: 400px;
+
+    select {
+      appearance: none;
+      width: 100%;
+      padding: 0.75rem 2.5rem 0.75rem 1rem;
+      font-size: 1rem;
+      border: 2px solid var(--swiss-medium-gray);
+      border-radius: 6px;
+      background-color: white;
+      cursor: pointer;
+      font-family: inherit;
+
+      &:focus {
+        outline: none;
+        border-color: var(--mountain-blue);
+        box-shadow: 0 0 0 3px rgba(75, 108, 183, 0.2);
+      }
+
+      &:disabled {
+        background-color: var(--swiss-light-gray);
+        cursor: not-allowed;
+        opacity: 0.7;
+      }
+
+      option {
+        padding: 0.5rem;
+      }
+    }
+
+    .select-arrow {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid var(--swiss-dark-gray);
+      pointer-events: none;
+    }
+  }
+}
+
+/* Schweizer-inspirierte Farbpalette */
+:host {
+  --swiss-red: #d52b1e;
+  --swiss-white: #ffffff;
+  --swiss-light-gray: #f4f4f4;
+  --swiss-medium-gray: #e0e0e0;
+  --swiss-dark-gray: #444444;
+  --swiss-text: #333333;
+  --mountain-blue: #4b6cb7;
+  --mountain-light-blue: #6e89c7;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  display: block;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: var(--swiss-text);
+  line-height: 1.6;
+}
+
+.canton-profile-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: var(--swiss-white);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+/* Loading-Spinner mit Schweizer Kreuz Animation */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-weight: 500;
+  position: relative;
+  color: var(--swiss-dark-gray);
+
+  &::before {
+    content: "+";
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: white;
+    background-color: var(--swiss-red);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    margin-right: 1rem;
+    animation: pulse 1.5s infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Fehlermeldung Styling */
+.error-message {
+  padding: 1.5rem;
+  background-color: rgba(213, 43, 30, 0.1);
+  border-left: 4px solid var(--swiss-red);
+  border-radius: 4px;
+  margin: 1.5rem 0;
+
+  button {
+    background-color: var(--swiss-red);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-top: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken(#d52b1e, 10%);
+    }
+  }
+}
+
+/* Kanton Header Styling */
+.canton-header {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--swiss-light-gray);
+  padding-bottom: 1rem;
+
+  h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: var(--swiss-text);
+    font-weight: 600;
+  }
+
+  .canton-code {
+    margin-left: 1rem;
+    font-size: 1.2rem;
+    color: var(--swiss-red);
+    font-weight: bold;
+    padding: 0.2rem 0.6rem;
+    background: var(--swiss-light-gray);
+    border-radius: 4px;
+  }
+}
+
+/* Canton Info Section */
+.canton-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+
+  p {
+    margin: 0;
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    border-left: 3px solid var(--mountain-blue);
+    padding-left: 1rem;
+
+    &::before {
+      content: attr(data-label);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--mountain-blue);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+  }
+}
+
+/* Canton Rules Section */
+.canton-rules {
+  background-color: var(--swiss-light-gray);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    color: var(--mountain-blue);
+    border-bottom: 2px solid var(--mountain-light-blue);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.rule-card {
+  background: white;
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    color: var(--swiss-text);
+  }
+
+  .rule-category {
+    display: inline-block;
+    background: var(--mountain-light-blue);
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+  }
+
+  .effective-date {
+    font-size: 0.85rem;
+    color: var(--swiss-dark-gray);
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--swiss-medium-gray);
+    font-style: italic;
+  }
+}
+
+.no-rules {
+  background-color: var(--swiss-light-gray);
+  padding: 2rem;
+  border-radius: 6px;
+  text-align: center;
+  color: var(--swiss-dark-gray);
+  font-style: italic;
+}
+
+/* Responsives Design */
+@media (max-width: 768px) {
+  .canton-header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .canton-code {
+      margin: 0.5rem 0 0 0;
+    }
+  }
+
+  .canton-info {
+    grid-template-columns: 1fr;
+  }
+}
